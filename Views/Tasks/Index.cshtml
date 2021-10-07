@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Tasker.Models.Task>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="col-12 border p-3 mt-3">
+            <table class="table-striped border" >
+                <thead>
+                    <tr class="table-secondary">
+                        <th>
+                            <a class="btn btn-block" style="width:100px">Start Date</a>
+                        </th>
+                        <th>
+                            <input class="form-control form-control-lg" style="height:40px" />
+                        </th>
+                        <th>
+                            <a class="btn btn-block" style="width:100px">End Date</a>
+                        </th>
+                        <th>
+                           <input class="form-control form-control-lg" style="height:40px" />
+                        </th>
+                        <th>
+                            <a class="btn btn-primary" style="width:150px; color:white">Filter</a>
+                        </th>
+                        <th>
+                            <a asp-action="Create" class="btn btn-primary" style="width:150px">Create New</a>
+                        </th>
+                    </tr>
+                </thead>
+        </table>
+        </div>
+        <br />
+        <div class="col-12 align-content-between">
+            <a class="btn btn-secondary" style="color:white; width:150px">Clear Filter</a>
+        </div>
+        <div class="col-12 border p-3 mt-3">
+            <table class="table table-striped border">
+                <thead>
+                    <tr class="table-secondary">
+                        <th>
+                            @Html.DisplayNameFor(model => model.TaskName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TaskDescription)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ExecutionDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Finished)
+                        </th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TaskName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TaskDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ExecutionDate)
+                            </td>
+                            <td>
+
+                                @Html.DisplayFor(modelItem => item.Finished)
+                                @if (item.Finished == true)
+                                {
+                                    //GetHashCode logic to add background color change...
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-success">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
